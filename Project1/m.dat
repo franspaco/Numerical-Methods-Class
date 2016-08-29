@@ -1,0 +1,36 @@
+# Created by Octave 4.0.3, Mon Aug 29 10:05:42 2016 GMT <unknown@PACO-LAP>
+# name: A
+# type: matrix
+# rows: 3
+# columns: 3
+ 1 2 3
+ 4 5 6
+ 7 8 9
+
+
+# name: B
+# type: matrix
+# rows: 3
+# columns: 2
+ 1 2
+ 3 4
+ 5 6
+
+
+# name: C
+# type: matrix
+# rows: 2
+# columns: 2
+ 1 2
+ 3 4
+
+
+# name: D
+# type: matrix
+# rows: 3
+# columns: 3
+ 1 1 1
+ 2 2 2
+ 3 3 3
+
+
