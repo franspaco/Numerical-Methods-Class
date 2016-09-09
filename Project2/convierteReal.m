@@ -50,6 +50,7 @@ function [R, E] = toBin(n, m, e)
     exp = substr(exp, -e);
 
     mantissa = substr(mantissa, temp + 1);
+    mantissa = substr(mantissa, 1, m);
 
   else
     %Si la parte entera NO es cero
