@@ -113,7 +113,6 @@ function o = floating2bin(n, a)
       o = strcat(o, '0');
     end
   end
-  er = res - n;
 end
 
 %****************************** BIN Floating to DEC ****************************
