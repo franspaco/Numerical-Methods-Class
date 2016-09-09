@@ -11,21 +11,33 @@ end
 function [R, E] = toBin(n, m, e)
   % Regresa el string binario normalizado equivalente a un decimal
   E = 0;
+  %Bit de signo
   sb = '0';
+
+  %Bit de signo del exponente
   eb = '0';
+
   exp = '0';
   mantissa = '';
+
+  %Guarda valor original
   or = n;
+
   if n < 0
     sb = '1';
     n = abs(n);
   end
-
+  %Obtener la parte entera
   a = dec2bin(floor(n));
+
+  %obtener la parte decimal
   b = floating2bin(n, 2*m);
+
+
   mantissa = strcat(a,b);
 
   if a == '0'
+    %Si la parte entera es cero
     eb = '1';
     temp = index(b, '1');
     exp = temp - 1;
@@ -40,12 +52,14 @@ function [R, E] = toBin(n, m, e)
     mantissa = substr(mantissa, temp + 1);
 
   else
+    %Si la parte entera NO es cero
+    %Exponente positivo, el punto se recorre length(a) lugares
     exp = dec2bin(length(a), e);
     exp = substr(exp, -e);
     mantissa =  substr(mantissa, 1, m);
   end
-  R = strcat(sb, '-', eb, '-', exp, '-', mantissa);
-  R = strcat(sb, eb, exp, mantissa)
+
+  R = strcat(sb, eb, exp, mantissa);
 
   %disp('ToDec');
   %toDec(R, m, e);
@@ -59,10 +73,11 @@ function [R, E] = toDec(n, m, e)
   E = '';
   sb  = n(1);
   eb  = n(2);
-  n
-  exp = substr(n, 3, e)
+  exp = substr(n, 3, e);
+  exp = bin2dec(exp);
+
   mantissa = substr(n, 3+e, m);
-  exp = bin2dec(exp)
+
   R = floatingToDec(mantissa);
 
   if eb == '0'
