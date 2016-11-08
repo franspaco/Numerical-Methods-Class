@@ -28,7 +28,6 @@ function [x, Ainv, d, S] = gaussJordan(A, B, op)
       Ainv = eliminar(A, eye(size(A)(1)));
       Ainv(:,1:len) = [];
     end
-    S = 0;
   end
 end;
 
