@@ -56,7 +56,7 @@ function A = pivoteo (A)
   len = size(A)(1);
 
   for j = 1:(len-1) %columnas
-    [x, ix] = max(A(j:len,j));
+    [x, ix] = max(abs(A(j:len,j)));
     ix += j-1;
     if ix ~= j
       temp = A(j,:);
