@@ -1,40 +1,44 @@
 function [x, Ainv, d, S] = gaussJordan(A, B, op)
   S = op;
   if size(A)(1) ~= size(A)(2)
-    return;
+    %return;
   end
 
   len = size(A)(1);
-  d = determinante(A);
 
   if op == 1
     %Solucion
-
     Ainv = 0;
-    if d == 0
-      S = 0;
-      x = 0;
-    else
-      x = eliminar(A,B);
-      x(:,1:len) = [];
-    end
+    [x, S, d] = eliminar(A,B, op);
+    x(:,1:len) = [];
   elseif op == 2
     %Determinante e inversa
     x = 0;
-    if d == 0
-      Ainv = 0;
-      S = 0;
-    else
-      Ainv = eliminar(A, eye(size(A)(1)));
-      Ainv(:,1:len) = [];
-    end
+    [Ainv, S, d] = eliminar(A, eye(size(A)(1)), op);
+    Ainv(:,1:len) = [];
+  elseif op == 3
+    x = pivoteo(A);
+    Ainv = 0;
+    d = 0;
+    S = 0;
   end
 end;
 
 
-function z = eliminar(x, y)
+function [z, S, d] = eliminar(x, y, S)
   len = size(x)(1);
   z = [x y];
+
+  z = pivoteo(z); %pivotear
+
+  r = diagonal(z);
+
+  if r == 0
+    z = 0;
+    S = 0;
+    d = 0;
+    return;
+  end
 
   for j = 1:(len-1) %columnas
     for k = (j+1):len   %renglones
@@ -48,41 +52,32 @@ function z = eliminar(x, y)
     end
   end
 
+  d = diagonal(z);
+
   for j = 1:len
     z(j,:) = z(j,:)/z(j,j);
   end
 end;
 
 
-function d = determinante(A)
-  %disp(['NOW: -----------------------------']);
-  %A
-  d = 0;
-  if size(A)(1) == 2 && size(A)(2) == 2
-    d = (A(1,1)*A(2,2)) - (A(1,2)*A(2,1));
-  else
-    for j = 1:size(A)(2)
+function A = pivoteo (A)
+  len = size(A)(1);
 
-      value = A(1,j);
-      prev = j-1;
-      next = j+1;
-      siz = size(A)(1);
-      min = 2;
-      max = size(A)(1) - 1;
-
-      if j == 1
-        B = A(min:siz, min:siz);
-      elseif j == siz
-        B = A(min:siz, 1:max);
-      else
-        B = [A(min:siz, 1:prev) A(min:siz, next:siz)];
-      end
-
-      if mod(j,2) == 1
-        d += value*determinante(B);
-      else
-        d -= value*determinante(B);
-      end
+  for j = 1:(len-1) %columnas
+    [x, ix] = max(A(j:len,j));
+    ix += j-1;
+    if ix ~= j
+      temp = A(j,:);
+      A(j,:) = A(ix,:);
+      A(ix,:) = temp;
     end
+  end
+end
+
+function y = diagonal (A)
+  len = size(A)(1);
+  y = 1;
+  for j = 1:len %columnas
+    y *= A(j,j);
   end
 end
