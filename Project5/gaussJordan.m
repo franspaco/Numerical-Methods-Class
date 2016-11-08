@@ -10,12 +10,10 @@ function [x, Ainv, d, S] = gaussJordan(A, B, op)
     %Solucion
     Ainv = 0;
     [x, S, d] = eliminar(A,B, op);
-    x(:,1:len) = [];
   elseif op == 2
     %Determinante e inversa
     x = 0;
     [Ainv, S, d] = eliminar(A, eye(size(A)(1)), op);
-    Ainv(:,1:len) = [];
   elseif op == 3
     x = pivoteo(A);
     Ainv = 0;
@@ -30,15 +28,6 @@ function [z, S, d] = eliminar(x, y, S)
   z = [x y];
 
   z = pivoteo(z); %pivotear
-
-  r = diagonal(z);
-
-  if r == 0
-    z = 0;
-    S = 0;
-    d = 0;
-    return;
-  end
 
   for j = 1:(len-1) %columnas
     for k = (j+1):len   %renglones
@@ -57,6 +46,9 @@ function [z, S, d] = eliminar(x, y, S)
   for j = 1:len
     z(j,:) = z(j,:)/z(j,j);
   end
+
+  z(:,1:len) = [];
+
 end;
 
 
