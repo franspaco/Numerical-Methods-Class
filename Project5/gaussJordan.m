@@ -43,6 +43,13 @@ function [z, S, d] = eliminar(x, y, S)
 
   d = diagonal(z);
 
+  if d == 0 || isnan(d)
+    d = 0;
+    z = 0;
+    S = 0;
+    return;
+  end
+
   for j = 1:len
     z(j,:) = z(j,:)/z(j,j);
   end
