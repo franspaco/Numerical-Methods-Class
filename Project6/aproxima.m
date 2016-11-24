@@ -14,6 +14,7 @@ function [A, E] = aproxima(X, Y, N, O, P)
     else
       A = 'NaN';
       E = 1;
+      return;
     end
   elseif O == 1
     A = minimos(X, Y, N, P);
