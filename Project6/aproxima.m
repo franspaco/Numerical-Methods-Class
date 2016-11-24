@@ -48,7 +48,6 @@ function A = interpola(X, Y, N, P)
     while X(1,bottom + 1) < mean(P(1,:))
       bottom++;
     end
-    disp(['Bottom: ' num2str(bottom)]);
     top = bottom;
     s = 0;
     while ( top - bottom ) < (N-2)
